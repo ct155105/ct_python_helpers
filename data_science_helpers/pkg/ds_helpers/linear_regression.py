@@ -110,3 +110,19 @@ def get_plot_and_scatter_image(df: pd.DataFrame, x: str, y: str, output_path: st
     plt.plot(ln_x,test_y, color='black', linewidth=3)
 
     plt.savefig(output_path)
+
+
+def get_linear_model(df: pd.DataFrame, columns: list[str], value_column: str) -> LinearRegression:
+    '''Creates a Linear Regression model for the subset of columns in the dataframe specified.
+    
+    Args:
+        df: The DataFrame housing the data.
+        columns: The columns to include as dimensions in the model
+        value_column: The name of the column to be treated as the "Y axis" value
+
+    Returns:
+        A LinearRegression object from the sklearn library
+    '''
+
+    model = LinearRegression().fit(df[columns].to_numpy(),df[value_column].to_numpy())
+    return model

@@ -56,3 +56,22 @@ def test_get_predicted_house_price():
     predicted = ds.get_predicted_house_price(prop, lf)
 
     assert predicted == 920
+
+
+def test_get_linear_model():
+    
+    d = {"col1": [0,2,4], "col2": [4,5,6], "value": [10,20,30]}
+    df = pd.DataFrame(d)
+    model = ds.get_linear_model(df, ['col1','col2'], 'value')
+
+    assert round(model.coef_[0],5) == 4
+    assert round(model.coef_[1],5) == 2
+
+    assert round(model.intercept_,5) == 2
+
+    
+    model = ds.get_linear_model(df, ['col1'], 'value')
+
+    assert round(model.coef_[0],5) == 5
+
+    assert round(model.intercept_,5) == 10
